@@ -96,9 +96,9 @@ export function Post(props) {
       </form>
 
       <div className={styles.commentList}>
-        {comments.map((comment) => (
+        {comments.map((comment, index) => (
           <Comment
-            key={Math.random()}
+            key={index}
             comment={comment}
             deleteComment={deleteComment}
           />
