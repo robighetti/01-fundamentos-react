@@ -10,6 +10,9 @@ import { Avatar } from '../avatar/Avatar'
 export function Post(props) {
   const { author, content, publishedAt } = props
 
+  const [inputValue, setInputValue] = useState('')
+  const [comments, setComments] = useState([])
+
   const publishedAtFormated = format(publishedAt, "d 'de' LLLL 'de' yyyy", {
     locale: ptBR,
   })
@@ -19,13 +22,27 @@ export function Post(props) {
     addSuffix: true,
   })
 
-  console.log(author)
-  const [inputValue, setInputValue] = useState('')
-
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    console.log(inputValue)
+    setComments([
+      {
+        name: 'Rodrigo Bighetti',
+        avatarUrl: 'https://github.com/robighetti.png',
+        text: inputValue,
+        createdAt: new Date(),
+      },
+      ...comments,
+    ])
+    setInputValue('')
+  }
+
+  function deleteComment(commentToBeDeleted) {
+    const filteredComments = comments.filter((comment) => {
+      if (comment !== commentToBeDeleted) return comment
+    })
+
+    setComments(filteredComments)
   }
 
   const getInputValue = (event) => {
@@ -67,6 +84,7 @@ export function Post(props) {
         <strong>Deixe seu feedback</strong>
 
         <textarea
+          name="comment"
           placeholder="Deixe um comentário"
           value={inputValue}
           onChange={getInputValue}
@@ -78,7 +96,13 @@ export function Post(props) {
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
+        {comments.map((comment) => (
+          <Comment
+            key={Math.random()}
+            comment={comment}
+            deleteComment={deleteComment}
+          />
+        ))}
       </div>
     </article>
   )

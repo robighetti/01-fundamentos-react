@@ -2,28 +2,33 @@ import { ThumbsUp, Trash } from 'phosphor-react'
 import styles from './comment.module.css'
 import { Avatar } from '../avatar/Avatar'
 
-export function Comment() {
+export function Comment(props) {
+  const { comment, deleteComment } = props
+
   return (
     <div className={styles.comment}>
-      <Avatar src="https://github.com/EnzoRibeiro0731.png" hasBorder={false} />
+      <Avatar src={comment.avatarUrl} hasBorder={false} />
 
       <div className={styles.contentBox}>
         <div className={styles.commentContent}>
           <header>
             <div className={styles.authorAndTime}>
-              <strong>Rodrigo Bighetti</strong>
+              <strong>{comment.name}</strong>
 
-              <time title="14 de maio de 2024" dateTime="2024-05-14 08:00:00">
+              <time title="14 de maio de 2024" dateTime={comment.createdAt}>
                 Cerca de 2hrs
               </time>
             </div>
 
-            <button title="Excluir Comentário">
+            <button
+              title="Excluir Comentário"
+              onClick={() => deleteComment(comment)}
+            >
               <Trash size={24} />
             </button>
           </header>
 
-          <p>Muito bom Thales, parabéns !!</p>
+          <p>{comment.text}</p>
         </div>
 
         <footer>
