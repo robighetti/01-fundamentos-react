@@ -1,9 +1,24 @@
 import { ThumbsUp, Trash } from 'phosphor-react'
 import styles from './comment.module.css'
 import { Avatar } from '../avatar/Avatar'
+import { format, formatDistanceToNow } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
 
 export function Comment(props) {
   const { comment, deleteComment } = props
+
+  const publishedAtFormated = format(
+    comment.createdAt,
+    "d 'de' LLLL 'de' yyyy",
+    {
+      locale: ptBR,
+    },
+  )
+
+  const distanceFromNowFormated = formatDistanceToNow(comment.createdAt, {
+    locale: ptBR,
+    addSuffix: true,
+  })
 
   return (
     <div className={styles.comment}>
@@ -15,8 +30,8 @@ export function Comment(props) {
             <div className={styles.authorAndTime}>
               <strong>{comment.name}</strong>
 
-              <time title="14 de maio de 2024" dateTime={comment.createdAt}>
-                Cerca de 2hrs
+              <time title={publishedAtFormated} dateTime="2024-05-14 08:00:00">
+                {distanceFromNowFormated}
               </time>
             </div>
 
