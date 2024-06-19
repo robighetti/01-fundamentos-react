@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+
 import styles from './app.module.css'
 
 import { Header } from './components/header/Header'
@@ -5,58 +7,20 @@ import { Post } from './components/post/Post'
 
 import './global.css'
 import { Sidebar } from './components/sibebar/Sidebar'
+import { api } from './services/axios'
 
 export function App() {
-  const posts = [
-    {
-      id: 1,
-      author: {
-        avatarUrl: 'https://github.com/gu-Moura.png',
-        name: 'Gustavo Moura',
-        role: 'Head IA and Machine Learning',
-      },
-      publishedAt: new Date('2024-05-10 20:00:00'),
-      content: [
-        {
-          type: 'paragraph',
-          content: 'Fala galeraa 👋',
-        },
-        {
-          type: 'paragraph',
-          content:
-            'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀',
-        },
-        {
-          type: 'link',
-          content: '👉 jane.design/doctorcare',
-        },
-      ],
-    },
-    {
-      id: 2,
-      author: {
-        avatarUrl: 'https://github.com/EnzoRibeiro0731.png',
-        name: 'Enzo Ribeiro',
-        role: 'Fullstack developer',
-      },
-      publishedAt: new Date(),
-      content: [
-        {
-          type: 'paragraph',
-          content: 'Fala galeraa 👋',
-        },
-        {
-          type: 'paragraph',
-          content:
-            'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀',
-        },
-        {
-          type: 'link',
-          content: '👉 jane.design/doctorcare',
-        },
-      ],
-    },
-  ]
+  const [posts, setPosts] = useState([])
+
+  const getPostsFromApi = async () => {
+    const { data } = await api.get('/posts')
+
+    setPosts(data)
+  }
+
+  useEffect(() => {
+    getPostsFromApi()
+  }, [])
 
   return (
     <div>
@@ -66,6 +30,13 @@ export function App() {
         <Sidebar />
 
         <main>
+          <div className={styles.postContent}>
+            <div className={styles.createPost}>
+              <textarea name="post" id="post" />             
+            </div>
+              <button>#</button>
+          </div>
+
           {posts.map((post) => {
             return (
               <Post
