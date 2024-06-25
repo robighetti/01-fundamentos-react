@@ -1,28 +1,35 @@
 {
   "posts": [
     {
-      "id": 1,
+      "id": "b433",
       "author": {
-        "avatarUrl": "https://github.com/gu-Moura.png",
-        "name": "Gustavo Moura",
-        "role": "Head IA and Machine Learning"
+        "avatarUrl": "https://github.com/robighetti.png",
+        "name": "Rodrigo Bighetti",
+        "role": "Fullstack Developer"
       },
-      "publishedAt": "2024-06-18T20:01:34",
+      "publishedAt": "2024-06-24T23:29:31.920Z",
       "content": [
         {
           "type": "paragraph",
-          "content": "Fala galeraa 👋"
-        },
-        {
-          "type": "paragraph",
-          "content":
-            "Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀"
-        },
-        {
-          "type": "link",
-          "content": "👉 jane.design/doctorcare"
+          "content": "Post 1"
         }
       ]
-    }    
-  ]
+    },
+    {
+      "id": "6549",
+      "author": {
+        "avatarUrl": "https://github.com/robighetti.png",
+        "name": "Rodrigo Bighetti",
+        "role": "Fullstack Developer"
+      },
+      "publishedAt": "2024-06-25T23:29:55.031Z",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Post 2"
+        }
+      ]
+    }
+  ],
+  "comments": []
 }

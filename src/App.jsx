@@ -11,11 +11,73 @@ import { api } from './services/axios'
 
 export function App() {
   const [posts, setPosts] = useState([])
+  const [inputValue, setInputValue] = useState('')
 
   const getPostsFromApi = async () => {
-    const { data } = await api.get('/posts')
-
+    const { data } = await api.get('/posts');
+        
     setPosts(data)
+  }
+
+  const getInputValue = (event) => {
+    setInputValue(event.target.value)
+  }
+
+  // Função para extrair hashtags de uma string
+function extrairHashtags(texto) {
+  // Expressão regular para encontrar hashtags
+  const regexHashtag = /#[a-zA-Z0-9_]+/g;
+  // Encontrar todas as hashtags
+  const hashtags = texto.match(regexHashtag);
+  return hashtags || []; // Retorna um array vazio se não houver hashtags
+}
+
+// Função para extrair partes sem hashtags de uma string
+function extrairSemHashtags(texto) {
+  // Expressão regular para encontrar hashtags
+  const regexHashtag = /#[a-zA-Z0-9_]+/g;
+  // Dividir a string nas partes sem hashtags
+  const partesSemHashtags = texto.split(regexHashtag);
+  return partesSemHashtags;
+}
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const hashtags = extrairHashtags(inputValue);
+    const whithoutHash = extrairSemHashtags(inputValue);    
+
+    const links = hashtags.map(item => {
+      return {
+        type: "link",
+        content: item
+      }
+    })
+
+    const paragraphs = whithoutHash.map(item => {
+      return {
+        type: "paragraph",
+        content: item
+      }
+    })
+
+    const payload = {
+      author: {
+        avatarUrl: "https://github.com/robighetti.png",
+        name: "Rodrigo Bighetti",
+        role: "Fullstack Developer"
+      },
+      publishedAt: new Date(),
+      content: [
+        ...paragraphs,
+        ...links
+      ]
+    }
+
+    await api.post('/posts', payload)
+
+    console.log(payload);
+    setInputValue('');
+    getPostsFromApi();
   }
 
   useEffect(() => {
@@ -30,12 +92,20 @@ export function App() {
         <Sidebar />
 
         <main>
-          <div className={styles.postContent}>
-            <div className={styles.createPost}>
-              <textarea name="post" id="post" />             
-            </div>
-              <button>#</button>
-          </div>
+          <form className={styles.commentForm} onSubmit={handleSubmit}>
+            <strong>Crie um post</strong>
+
+            <textarea
+              name="post"
+              placeholder="O que você esta pensando ?"
+              value={inputValue}
+              onChange={getInputValue}
+            />
+
+            <footer>
+              <button type="submit">Publicar</button>
+            </footer>
+          </form>
 
           {posts.map((post) => {
             return (
