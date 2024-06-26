@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build & json-server server.json -p 3333",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "db": "npx json-server server.json -p 3333"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
