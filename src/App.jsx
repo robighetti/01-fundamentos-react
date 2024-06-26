@@ -27,6 +27,7 @@ export function App() {
 function extrairHashtags(texto) {
   // Expressão regular para encontrar hashtags
   const regexHashtag = /#[a-zA-Z0-9_]+/g;
+  
   // Encontrar todas as hashtags
   const hashtags = texto.match(regexHashtag);
   return hashtags || []; // Retorna um array vazio se não houver hashtags
@@ -36,6 +37,7 @@ function extrairHashtags(texto) {
 function extrairSemHashtags(texto) {
   // Expressão regular para encontrar hashtags
   const regexHashtag = /#[a-zA-Z0-9_]+/g;
+
   // Dividir a string nas partes sem hashtags
   const partesSemHashtags = texto.split(regexHashtag);
   return partesSemHashtags.map(txt => {
