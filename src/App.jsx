@@ -14,7 +14,7 @@ export function App() {
   const [inputValue, setInputValue] = useState('')
 
   const getPostsFromApi = async () => {
-    const { data } = await api.get('/posts');
+    const { data } = await api.get('/posts?_sort=publishedAt&_order=desc');
         
     setPosts(data)
   }
@@ -38,7 +38,9 @@ function extrairSemHashtags(texto) {
   const regexHashtag = /#[a-zA-Z0-9_]+/g;
   // Dividir a string nas partes sem hashtags
   const partesSemHashtags = texto.split(regexHashtag);
-  return partesSemHashtags;
+  return partesSemHashtags.map(txt => {
+    if (txt) return txt
+  });
 }
 
   const handleSubmit = async (event) => {
@@ -74,8 +76,7 @@ function extrairSemHashtags(texto) {
     }
 
     await api.post('/posts', payload)
-
-    console.log(payload);
+    
     setInputValue('');
     getPostsFromApi();
   }

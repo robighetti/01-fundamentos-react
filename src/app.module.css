@@ -75,7 +75,7 @@
   
   .commentForm textarea {
     width: 100%;
-    background: var(--gray-900);
+    background: var(--gray-800);
     border: 0;
     resize: none;
     height: 6rem;
