@@ -1,4 +1,106 @@
 {
-  "posts": [],
-  "comments": []
+  "posts": [
+    {
+      "author": {
+        "avatarUrl": "https://github.com/robighetti.png",
+        "name": "Rodrigo Bighetti",
+        "role": "Fullstack Developer"
+      },
+      "publishedAt": "2024-07-02T22:40:23.500Z",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Este é um post"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "author": {
+        "avatarUrl": "https://github.com/robighetti.png",
+        "name": "Rodrigo Bighetti",
+        "role": "Fullstack Developer"
+      },
+      "publishedAt": "2024-07-02T22:41:02.100Z",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Este é um outro post 2"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "author": {
+        "avatarUrl": "https://github.com/robighetti.png",
+        "name": "Rodrigo Bighetti",
+        "role": "Fullstack Developer"
+      },
+      "publishedAt": "2024-07-02T23:14:17.926Z",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Novo post"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "author": {
+        "avatarUrl": "https://github.com/robighetti.png",
+        "name": "Rodrigo Bighetti",
+        "role": "Fullstack Developer"
+      },
+      "publishedAt": "2024-07-02T23:16:11.160Z",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Novo post agora sem erro"
+        }
+      ],
+      "id": 4
+    }
+  ],
+  "comments": [
+    {
+      "postId": 1,
+      "name": "Rodrigo Bighetti",
+      "avatarUrl": "https://github.com/robighetti.png",
+      "text": "Quaquer texto",
+      "createdAt": "2024-07-02T22:40:23.500Z",
+      "id": 1
+    },
+    {
+      "postId": 1,
+      "name": "Rodrigo Bighetti",
+      "avatarUrl": "https://github.com/robighetti.png",
+      "text": "Quaquer texto",
+      "createdAt": "2024-07-02T22:40:23.500Z",
+      "id": 2
+    },
+    {
+      "postId": 2,
+      "name": "Rodrigo Bighetti",
+      "avatarUrl": "https://github.com/robighetti.png",
+      "text": "Quaquer texto",
+      "createdAt": "2024-07-02T22:40:23.500Z",
+      "id": 3
+    },
+    {
+      "postId": 4,
+      "name": "Rodrigo Bighetti",
+      "avatarUrl": "https://github.com/robighetti.png",
+      "text": "Comentario 1",
+      "createdAt": "2024-07-02T23:16:16.207Z",
+      "id": 4
+    },
+    {
+      "postId": 4,
+      "name": "Rodrigo Bighetti",
+      "avatarUrl": "https://github.com/robighetti.png",
+      "text": "Comentario 2",
+      "createdAt": "2024-07-02T23:16:21.526Z",
+      "id": 5
+    }
+  ]
 }

@@ -1,14 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 
 import { Comment } from '../comment/Comment'
 import styles from './post.module.css'
 import { Avatar } from '../avatar/Avatar'
+import { api } from '../../services/axios'
+
+import { Author } from './styles'
 
 export function Post(props) {
-  const { author, content, publishedAt } = props
+  const { author, content, publishedAt, postId } = props
 
   const [inputValue, setInputValue] = useState('')
   const [comments, setComments] = useState([])
@@ -22,18 +26,20 @@ export function Post(props) {
     addSuffix: true,
   })
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
-    setComments([
-      {
-        name: 'Rodrigo Bighetti',
-        avatarUrl: 'https://github.com/robighetti.png',
-        text: inputValue,
-        createdAt: new Date(),
-      },
-      ...comments,
-    ])
+    const comment = {
+      postId,
+      name: 'Rodrigo Bighetti',
+      avatarUrl: 'https://github.com/robighetti.png',
+      text: inputValue,
+      createdAt: new Date(),
+    }
+
+    await api.post('/comments', comment)
+
+    setComments([comment, ...comments])
     setInputValue('')
   }
 
@@ -49,17 +55,28 @@ export function Post(props) {
     setInputValue(event.target.value)
   }
 
+  const getComments = async () => {
+    const { data } = await api.get(
+      `/comments?postId=${postId}&_sort=createdAt&_order=desc`,
+    )
+    setComments(data)
+  }
+
+  useEffect(() => {
+    getComments()
+  }, [])
+
   return (
     <article className={styles.container}>
       <header className={styles.header}>
-        <div className={styles.author}>
+        <Author test={true}>
           <Avatar hasBorder={true} src={author.avatarUrl} />
 
           <div className={styles.authorInfo}>
             <strong>{author.name}</strong>
             <span>{author.role}</span>
           </div>
-        </div>
+        </Author>
 
         <time title={publishedAtFormated} dateTime="2024-05-14 08:00:00">
           {distanceFromNowFormated}

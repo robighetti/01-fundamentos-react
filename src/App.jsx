@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { useState, useEffect } from 'react'
 
 import styles from './app.module.css'
@@ -14,8 +15,8 @@ export function App() {
   const [inputValue, setInputValue] = useState('')
 
   const getPostsFromApi = async () => {
-    const { data } = await api.get('/posts?_sort=publishedAt&_order=desc');
-        
+    const { data } = await api.get('/posts?_sort=publishedAt&_order=desc')
+
     setPosts(data)
   }
 
@@ -24,63 +25,60 @@ export function App() {
   }
 
   // Função para extrair hashtags de uma string
-function extrairHashtags(texto) {
-  // Expressão regular para encontrar hashtags
-  const regexHashtag = /#[a-zA-Z0-9_]+/g;
-  
-  // Encontrar todas as hashtags
-  const hashtags = texto.match(regexHashtag);
-  return hashtags || []; // Retorna um array vazio se não houver hashtags
-}
+  function extrairHashtags(texto) {
+    // Expressão regular para encontrar hashtags
+    const regexHashtag = /#[a-zA-Z0-9_]+/g
 
-// Função para extrair partes sem hashtags de uma string
-function extrairSemHashtags(texto) {
-  // Expressão regular para encontrar hashtags
-  const regexHashtag = /#[a-zA-Z0-9_]+/g;
+    // Encontrar todas as hashtags
+    const hashtags = texto.match(regexHashtag)
+    return hashtags || [] // Retorna um array vazio se não houver hashtags
+  }
 
-  // Dividir a string nas partes sem hashtags
-  const partesSemHashtags = texto.split(regexHashtag);
-  return partesSemHashtags.map(txt => {
-    if (txt) return txt
-  });
-}
+  // Função para extrair partes sem hashtags de uma string
+  function extrairSemHashtags(texto) {
+    // Expressão regular para encontrar hashtags
+    const regexHashtag = /#[a-zA-Z0-9_]+/g
+
+    // Dividir a string nas partes sem hashtags
+    const partesSemHashtags = texto.split(regexHashtag)
+    return partesSemHashtags.map((txt) => {
+      if (txt) return txt
+    })
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const hashtags = extrairHashtags(inputValue);
-    const whithoutHash = extrairSemHashtags(inputValue);    
+    const hashtags = extrairHashtags(inputValue)
+    const whithoutHash = extrairSemHashtags(inputValue)
 
-    const links = hashtags.map(item => {
+    const links = hashtags.map((item) => {
       return {
-        type: "link",
-        content: item
+        type: 'link',
+        content: item,
       }
     })
 
-    const paragraphs = whithoutHash.map(item => {
+    const paragraphs = whithoutHash.map((item) => {
       return {
-        type: "paragraph",
-        content: item
+        type: 'paragraph',
+        content: item,
       }
     })
 
     const payload = {
       author: {
-        avatarUrl: "https://github.com/robighetti.png",
-        name: "Rodrigo Bighetti",
-        role: "Fullstack Developer"
+        avatarUrl: 'https://github.com/robighetti.png',
+        name: 'Rodrigo Bighetti',
+        role: 'Fullstack Developer',
       },
       publishedAt: new Date(),
-      content: [
-        ...paragraphs,
-        ...links
-      ]
+      content: [...paragraphs, ...links],
     }
 
     await api.post('/posts', payload)
-    
-    setInputValue('');
-    getPostsFromApi();
+
+    setInputValue('')
+    getPostsFromApi()
   }
 
   useEffect(() => {
@@ -117,6 +115,7 @@ function extrairSemHashtags(texto) {
                 author={post.author}
                 content={post.content}
                 publishedAt={post.publishedAt}
+                postId={post.id}
               />
             )
           })}
